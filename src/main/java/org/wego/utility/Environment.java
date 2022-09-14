@@ -1,4 +1,4 @@
-package org.WeGo.utility;
+package org.wego.utility;
 
 public class Environment {
 

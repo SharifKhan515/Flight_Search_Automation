@@ -1,11 +1,12 @@
-package org.WeGo.pages;
+package org.wego.pages;
 
-import org.WeGo.driver.DriverProvider;
-import org.WeGo.utility.ApplicationConfig;
+import org.wego.driver.DriverProvider;
+import org.wego.utility.ApplicationConfig;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 
 import java.time.Duration;
 
@@ -19,17 +20,6 @@ public class BasePage {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(ApplicationConfig.getDefaultExplicitWait()));
         wait.until(ExpectedConditions.visibilityOf(element)).click();
     }
-
-   /* public static SearchContext getElementFromShadowDom(WebElement shadowHost, WebElement element){
-        WebDriver driver = DriverProvider.getDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(ApplicationConfig.getDefaultExplicitWait()));
-        WebElement shadowHostElement = wait.until(ExpectedConditions.visibilityOf(shadowHost));
-
-        //WebElement shadowHostElement = driver.findElement(shadowHost);
-        SearchContext shadowRoot = shadowHostElement.getShadowRoot();
-        WebElement shadowContent = wait.until(ExpectedConditions.visibilityOf(element));
-        return shadowContent;
-    }*/
 
     public static SearchContext getShadowDomInsideShadowDom(SearchContext outerShadowRoot, By innerShadowHost){
         WebDriver driver = DriverProvider.getDriver();
@@ -50,4 +40,11 @@ public class BasePage {
 
     }
 
+    public static void sendKeysElementInsideShadowDom(SearchContext shadowRoot, By element,String message){
+        WebDriver driver = DriverProvider.getDriver();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(ApplicationConfig.getDefaultExplicitWait()));
+        wait.until(ExpectedConditions.visibilityOf(shadowRoot.findElement(element))).clear();
+        shadowRoot.findElement(element).sendKeys(message);
+        shadowRoot.findElement(element).sendKeys(Keys.ENTER);
+    }
 }

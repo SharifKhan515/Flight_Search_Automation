@@ -1,16 +1,10 @@
-package org.WeGo.testcases;
+package org.wego.testcases;
 
-import com.aventstack.extentreports.Status;
-import org.WeGo.driver.DriverProvider;
-import org.WeGo.utility.ApplicationConfig;
-import org.apache.logging.log4j.LogManager;
+import org.wego.driver.DriverProvider;
+import org.wego.utility.ApplicationConfig;
 import org.openqa.selenium.WebDriver;
-import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeMethod;
 import org.testng.asserts.SoftAssert;
-
-import java.lang.reflect.Method;
 
 public class BaseTest {
 
