@@ -4,14 +4,12 @@ import org.wego.driver.DriverProvider;
 import org.wego.utility.ApplicationConfig;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
-import org.testng.asserts.SoftAssert;
+
 
 public class BaseTest {
 
     private final String baseUrl = ApplicationConfig.getBaseUrl();
     public WebDriver driver;
-
-    public SoftAssert softVerify;
 
     @BeforeClass
     public void init() {

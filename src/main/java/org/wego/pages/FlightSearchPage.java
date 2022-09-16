@@ -35,7 +35,7 @@ public class FlightSearchPage extends BasePage {
     By monthName = new By.ByCssSelector(".month");
     By nextMonthButton = new By.ByCssSelector("wego-sprite[class='chevron']");
     By monthDate = new By.ByCssSelector(".days");
-    By daysOfMonth = new By.ByCssSelector(".day");
+    By daysOfMonth = new By.ByCssSelector("div.days i.day");
     By shadowHostDirectFlightCheckBox = new By.ByCssSelector("wego-checkbox.return");
     By directFlightButton = new By.ByCssSelector("#checkbox");
 
@@ -85,15 +85,15 @@ public class FlightSearchPage extends BasePage {
         return  getShadowDomInsideShadowDom(locationOverlay,shadowHostLocationInputField);
 	}
 
-    private SearchContext getFlightCalenderForm(String date){
+    private SearchContext getFlightCalenderForm(String dateType){
         //Return the form which contain To and From
         SearchContext shadowRootDatePicker= getShadowDomInsideShadowDom(getFlightSearchForm(),shadowHostDatePicker);
         SearchContext shadowRootDateSelector = getShadowDomInsideShadowDom(shadowRootDatePicker,shadowHostDateSelector);
         SearchContext flightDateRoot = null;
-        if(date.equalsIgnoreCase("depart")){
+        if(dateType.equalsIgnoreCase("depart")){
             flightDateRoot =  getShadowDomInsideShadowDom(shadowRootDateSelector,shadowHostDepartDate);
             selectElementInsideShadowDom(flightDateRoot,inputDepartDate);
-        }else if(date.equalsIgnoreCase("return")){
+        }else if(dateType.equalsIgnoreCase("return")){
             flightDateRoot =  getShadowDomInsideShadowDom(shadowRootDateSelector,shadowHostReturnDate);
             selectElementInsideShadowDom(flightDateRoot,inputReturnDate);
         }
@@ -185,7 +185,16 @@ public class FlightSearchPage extends BasePage {
         selectElementInsideShadowDom(shadowRootCabinPicker,cabinPickerButton);
         return shadowRootCabinPicker;
     }
-    public void selectOneway() {
+    public void selectTripType(String type) {
+
+        if (type.equalsIgnoreCase("One-way")) {
+            selectElementInsideShadowDom(getFlightSearchForm(), oneWayButton);
+        }else if(type.equalsIgnoreCase("Round-trip")){
+            selectElementInsideShadowDom(getFlightSearchForm(), roundTripButton);
+        }else if(type.equalsIgnoreCase("Multi-city")){
+            selectElementInsideShadowDom(getFlightSearchForm(), multiCityButton);
+        }
+
         selectElementInsideShadowDom(getFlightSearchForm(), oneWayButton);
     }
     public void selectDirectFlight(){
