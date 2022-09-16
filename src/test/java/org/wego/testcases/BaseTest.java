@@ -1,12 +1,18 @@
 package org.wego.testcases;
 
+import com.aventstack.extentreports.Status;
+
+import org.testng.annotations.AfterSuite;
+
 import org.wego.driver.DriverProvider;
+import org.wego.reporter.ReportManager;
 import org.wego.utility.ApplicationConfig;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 
 
-public class BaseTest {
+
+public class BaseTest extends ReportManager {
 
     private final String baseUrl = ApplicationConfig.getBaseUrl();
     public WebDriver driver;
@@ -17,10 +23,6 @@ public class BaseTest {
         driver.get(baseUrl);
     }
 
-  /*  @BeforeMethod
-    public void methodInit(Method m) {
-        log = LogManager.getLogger(this.getClass().getName() + ":" + m.getName());
-    }
 
     @AfterSuite
     public void exit() {
@@ -29,6 +31,5 @@ public class BaseTest {
 
     public void reportLog(String message) {
         test.log(Status.INFO, message);
-        log.info(message);
-    }*/
+    }
 }
