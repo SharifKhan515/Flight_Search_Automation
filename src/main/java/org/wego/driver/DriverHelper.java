@@ -12,9 +12,9 @@ import java.util.UUID;
 
 import static org.wego.utility.Environment.screenshotDirectory;
 
-public class DriverHelper extends DriverProvider{
+public class DriverHelper extends DriverProvider {
 
-    public static void moveToChildWindow(){
+    public static void moveToChildWindow() {
 
         WebDriver driver = getDriver();
         String MainWindow = driver.getWindowHandle();

@@ -11,7 +11,6 @@ import org.openqa.selenium.WebDriver;
 import org.testng.annotations.BeforeClass;
 
 
-
 public class BaseTest extends ReportManager {
 
     private final String baseUrl = ApplicationConfig.getBaseUrl();
@@ -30,6 +29,9 @@ public class BaseTest extends ReportManager {
     }
 
     public void reportLog(String message) {
-        test.log(Status.INFO, message);
+        if (test != null) {
+            test.log(Status.INFO, message);
+        }
+
     }
 }

@@ -16,15 +16,15 @@ public class Listener extends ReportManager implements ITestListener {
         Object[] parameters = iTestResult.getParameters();
         test = report.createTest(methodName);
         extentTest.set(test);
-        for(Object parameter: parameters ){
-            extentTest.get().log(Status.INFO,"Test data :"+parameter);
+        for (Object parameter : parameters) {
+            extentTest.get().log(Status.INFO, "Test data :" + parameter);
         }
     }
 
     @Override
     public void onTestSuccess(ITestResult iTestResult) {
 
-        extentTest.get().log(Status.PASS,"Test Passed");
+        extentTest.get().log(Status.PASS, "Test Passed");
     }
 
     @Override
@@ -33,17 +33,20 @@ public class Listener extends ReportManager implements ITestListener {
         try {
             String screenShot = DriverHelper.getScreenshot(methodName);
 
-            extentTest.get().addScreenCaptureFromPath(".\\screenshot" +screenShot);
+            extentTest.get().addScreenCaptureFromPath(".\\screenshot" + screenShot);
         } catch (IOException e) {
             e.printStackTrace();
         }
-       extentTest.get().fail(iTestResult.getThrowable());
+        extentTest.get().fail(iTestResult.getThrowable());
     }
 
     @Override
     public void onTestSkipped(ITestResult iTestResult) {
         String methodName = iTestResult.getMethod().getMethodName();
-        extentTest.get().skip("Test Skip: "+methodName);
+        test = report.createTest(methodName);
+        extentTest.set(test);
+        extentTest.get().skip("Test Skip: " + methodName);
+        report.flush();
     }
 
     @Override
@@ -53,11 +56,11 @@ public class Listener extends ReportManager implements ITestListener {
 
     @Override
     public void onStart(ITestContext iTestContext) {
-             report = ExtentReporter.getReportObject();
+        report = ExtentReporter.getReportObject();
     }
 
     @Override
     public void onFinish(ITestContext iTestContext) {
-       report.flush();
+        report.flush();
     }
 }
