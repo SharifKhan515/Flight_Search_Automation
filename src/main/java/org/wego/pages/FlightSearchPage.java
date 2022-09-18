@@ -15,6 +15,7 @@ public class FlightSearchPage extends BasePage {
     By oneWayButton = new By.ByCssSelector("button[data-category='oneWay']");
     By roundTripButton = new By.ByCssSelector("button[data-category='return']");
     By multiCityButton = new By.ByCssSelector("button[data-category='multicity']");
+   // By multiCityButton = new By.ByCssSelector("button:nth-child(2)");
     By shadowHostFlightLocationPicker = new By.ByCssSelector("wego-location-picker[app-type='flights']");
     By shadowHostFromLocation = new By.ByCssSelector("single-location-picker:nth-child(2)");
     By shadowHostToLocation = new By.ByCssSelector("single-location-picker:nth-child(3)");
@@ -95,7 +96,6 @@ public class FlightSearchPage extends BasePage {
             selectElementInsideShadowDom(flightDateRoot,inputDepartDate);
         }else if(dateType.equalsIgnoreCase("return")){
             flightDateRoot =  getShadowDomInsideShadowDom(shadowRootDateSelector,shadowHostReturnDate);
-            selectElementInsideShadowDom(flightDateRoot,inputReturnDate);
         }
         assert flightDateRoot  != null;
         return getShadowDomInsideShadowDom(shadowRootDatePicker,calenderOverlay);
@@ -195,7 +195,6 @@ public class FlightSearchPage extends BasePage {
             selectElementInsideShadowDom(getFlightSearchForm(), multiCityButton);
         }
 
-        selectElementInsideShadowDom(getFlightSearchForm(), oneWayButton);
     }
     public void selectDirectFlight(){
         SearchContext shadowRootDirectFlightCheckBox = getShadowDomInsideShadowDom(getFlightSearchForm(),shadowHostDirectFlightCheckBox);
@@ -236,5 +235,4 @@ public class FlightSearchPage extends BasePage {
         selectElementInsideShadowDom(getFlightSearchForm(), flightSearChButton);
         DriverHelper.moveToChildWindow();
     }
-
 }
