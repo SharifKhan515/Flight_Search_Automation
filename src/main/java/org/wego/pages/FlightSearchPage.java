@@ -235,5 +235,4 @@ public class FlightSearchPage extends BasePage {
         selectElementInsideShadowDom(getFlightSearchForm(), flightSearChButton);
         DriverHelper.moveToChildWindow();
     }
-
 }

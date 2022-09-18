@@ -77,7 +77,7 @@ public class FlightSearchTest extends BaseTest {
     }
 
     @Test(dataProvider = "flightSearch", dataProviderClass = ReadData.class)
-    public void roundTripFlightSearch(String fromAirport, String toAirport, String departDate, String returnDate, String adult, String child, String infant, String cabin, String trip) {
+    public void RoundTripFlightSearch(String fromAirport, String toAirport, String departDate, String returnDate, String adult, String child, String infant, String cabin, String trip) {
         SoftAssert softAssert = new SoftAssert();
         FlightSearchPage flightSearchPage = new FlightSearchPage();
         FlightSearchResultPage flightSearchResultPage = new FlightSearchResultPage();
