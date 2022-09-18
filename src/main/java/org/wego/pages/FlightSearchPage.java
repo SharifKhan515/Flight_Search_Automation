@@ -15,7 +15,7 @@ public class FlightSearchPage extends BasePage {
     By oneWayButton = new By.ByCssSelector("button[data-category='oneWay']");
     By roundTripButton = new By.ByCssSelector("button[data-category='return']");
     By multiCityButton = new By.ByCssSelector("button[data-category='multicity']");
-   // By multiCityButton = new By.ByCssSelector("button:nth-child(2)");
+    // By multiCityButton = new By.ByCssSelector("button:nth-child(2)");
     By shadowHostFlightLocationPicker = new By.ByCssSelector("wego-location-picker[app-type='flights']");
     By shadowHostFromLocation = new By.ByCssSelector("single-location-picker:nth-child(2)");
     By shadowHostToLocation = new By.ByCssSelector("single-location-picker:nth-child(3)");
@@ -54,184 +54,190 @@ public class FlightSearchPage extends BasePage {
     By infantPassengerIncrementButton = new By.ByCssSelector("#i2");
     By infantPassengerDecrementButton = new By.ByCssSelector("#i1");
 
-    By passengerApplyButton= new By.ByCssSelector(".apply-btn");
+    By passengerApplyButton = new By.ByCssSelector(".apply-btn");
 
-    By  shadowHostCabinPicker = new By.ByCssSelector("cabin-class-picker");
-    By  cabinPickerButton = new By.ByCssSelector("#arrow");
-    By  cabinSelector = new By.ByCssSelector("div div.dropdown-item");
+    By shadowHostCabinPicker = new By.ByCssSelector("cabin-class-picker");
+    By cabinPickerButton = new By.ByCssSelector("#arrow");
+    By cabinSelector = new By.ByCssSelector("div div.dropdown-item");
 
     By flightSearChButton = new By.ByCssSelector(".search");
 
 
     private SearchContext getFlightSearchForm() {
-		// Return FlightContainerShadowRoot
+        // Return FlightContainerShadowRoot
         SearchContext mainShadowRoot = getShadowRootForMainShadowDom(shadowHostMainPage);
         SearchContext shadowRootFlightPage = getShadowDomInsideShadowDom(mainShadowRoot, shadowHostFlightPage);
         SearchContext shadowRootFlightSearchContainer = getShadowDomInsideShadowDom(shadowRootFlightPage, shadowHostFlightSearchContainer);
-		return getShadowDomInsideShadowDom(shadowRootFlightSearchContainer, shadowHostFlightSearchForm);
+        return getShadowDomInsideShadowDom(shadowRootFlightSearchContainer, shadowHostFlightSearchForm);
     }
 
-	private SearchContext getFlightLocationForm(String location){
-       //Return the form which contain To and From
-        SearchContext shadowRootFlightLocationPicker = getShadowDomInsideShadowDom(getFlightSearchForm(),shadowHostFlightLocationPicker);
+    private SearchContext getFlightLocationForm(String location) {
+        //Return the form which contain To and From
+        SearchContext shadowRootFlightLocationPicker = getShadowDomInsideShadowDom(getFlightSearchForm(), shadowHostFlightLocationPicker);
         SearchContext flightLocationRoot = null;
-        if(location.equalsIgnoreCase("to")){
-            flightLocationRoot =  getShadowDomInsideShadowDom(shadowRootFlightLocationPicker,shadowHostToLocation);
-        }else if(location.equalsIgnoreCase("from")){
-            flightLocationRoot =  getShadowDomInsideShadowDom(shadowRootFlightLocationPicker,shadowHostFromLocation);
+        if (location.equalsIgnoreCase("to")) {
+            flightLocationRoot = getShadowDomInsideShadowDom(shadowRootFlightLocationPicker, shadowHostToLocation);
+        } else if (location.equalsIgnoreCase("from")) {
+            flightLocationRoot = getShadowDomInsideShadowDom(shadowRootFlightLocationPicker, shadowHostFromLocation);
         }
         assert flightLocationRoot != null;
-        selectElementInsideShadowDom(flightLocationRoot,shadowHostLocationSelector);
-        SearchContext locationOverlay = getShadowDomInsideShadowDom(flightLocationRoot,shadowHostLocationOverlay);
-        return  getShadowDomInsideShadowDom(locationOverlay,shadowHostLocationInputField);
-	}
-
-    private SearchContext getFlightCalenderForm(String dateType){
-        //Return the form which contain To and From
-        SearchContext shadowRootDatePicker= getShadowDomInsideShadowDom(getFlightSearchForm(),shadowHostDatePicker);
-        SearchContext shadowRootDateSelector = getShadowDomInsideShadowDom(shadowRootDatePicker,shadowHostDateSelector);
-        SearchContext flightDateRoot = null;
-        if(dateType.equalsIgnoreCase("depart")){
-            flightDateRoot =  getShadowDomInsideShadowDom(shadowRootDateSelector,shadowHostDepartDate);
-            selectElementInsideShadowDom(flightDateRoot,inputDepartDate);
-        }else if(dateType.equalsIgnoreCase("return")){
-            flightDateRoot =  getShadowDomInsideShadowDom(shadowRootDateSelector,shadowHostReturnDate);
-        }
-        assert flightDateRoot  != null;
-        return getShadowDomInsideShadowDom(shadowRootDatePicker,calenderOverlay);
+        selectElementInsideShadowDom(flightLocationRoot, shadowHostLocationSelector);
+        SearchContext locationOverlay = getShadowDomInsideShadowDom(flightLocationRoot, shadowHostLocationOverlay);
+        return getShadowDomInsideShadowDom(locationOverlay, shadowHostLocationInputField);
     }
 
-    private void selectDate(SearchContext calenderOverlay, String dateOfYear){
+    private SearchContext getFlightCalenderForm(String dateType) {
+        //Return the form which contain To and From
+        SearchContext shadowRootDatePicker = getShadowDomInsideShadowDom(getFlightSearchForm(), shadowHostDatePicker);
+        SearchContext shadowRootDateSelector = getShadowDomInsideShadowDom(shadowRootDatePicker, shadowHostDateSelector);
+        SearchContext flightDateRoot = null;
+        if (dateType.equalsIgnoreCase("depart")) {
+            flightDateRoot = getShadowDomInsideShadowDom(shadowRootDateSelector, shadowHostDepartDate);
+            selectElementInsideShadowDom(flightDateRoot, inputDepartDate);
+        } else if (dateType.equalsIgnoreCase("return")) {
+            flightDateRoot = getShadowDomInsideShadowDom(shadowRootDateSelector, shadowHostReturnDate);
+        }
+        assert flightDateRoot != null;
+        return getShadowDomInsideShadowDom(shadowRootDatePicker, calenderOverlay);
+    }
+
+    private void selectDate(SearchContext calenderOverlay, String dateOfYear) {
         //dateOfYear is a string of format "date month year"
         SearchContext month = getShadowDomInsideShadowDom(calenderOverlay, calenderMonth1);
-        String nameOfMonth = getTextFromElementInsideShadowDom(month,monthName);
+        String nameOfMonth = getTextFromElementInsideShadowDom(month, monthName);
         String[] dates = dateOfYear.split(" ");
-        String months = dates[1]+" "+dates[2];
+        String months = dates[1] + " " + dates[2];
         String date = dates[0];
-        while (!months.equalsIgnoreCase(nameOfMonth)){
-             selectElementInsideShadowDom(calenderOverlay,nextMonthButton);
-             month = getShadowDomInsideShadowDom(calenderOverlay, calenderMonth1);
-             nameOfMonth = getTextFromElementInsideShadowDom(month,monthName);
+        while (!months.equalsIgnoreCase(nameOfMonth)) {
+            selectElementInsideShadowDom(calenderOverlay, nextMonthButton);
+            month = getShadowDomInsideShadowDom(calenderOverlay, calenderMonth1);
+            nameOfMonth = getTextFromElementInsideShadowDom(month, monthName);
         }
         SearchContext monthElement = getElementInsideShadowDom(month, monthDate);
-        selectElementByVisibleTextInsideShadowDom(monthElement,daysOfMonth,date);
+        selectElementByVisibleTextInsideShadowDom(monthElement, daysOfMonth, date);
     }
 
-    private SearchContext getPassengerSelectionModal(){
-        SearchContext shadowRootPassengerDropDown = getShadowDomInsideShadowDom(getFlightSearchForm(),shadowHostPassengerDropDown);
-        selectElementInsideShadowDom(shadowRootPassengerDropDown,passengerDropDownButton);
+    private SearchContext getPassengerSelectionModal() {
+        SearchContext shadowRootPassengerDropDown = getShadowDomInsideShadowDom(getFlightSearchForm(), shadowHostPassengerDropDown);
+        selectElementInsideShadowDom(shadowRootPassengerDropDown, passengerDropDownButton);
         return shadowRootPassengerDropDown;
     }
 
-    private void setAdultPassenger(SearchContext passengerRoot, String count){
-        String adultCount= getTextFromElementInsideShadowDom(passengerRoot,adultPassengerCount);
+    private void setAdultPassenger(SearchContext passengerRoot, String count) {
+        String adultCount = getTextFromElementInsideShadowDom(passengerRoot, adultPassengerCount);
         int adultValue = Integer.parseInt(adultCount);
         int expectedCount = Integer.parseInt(count);
-        if(adultValue<expectedCount){
-            while(adultValue<expectedCount){
-                selectElementInsideShadowDom(passengerRoot,adultPassengerIncrementButton);
-                adultCount= getTextFromElementInsideShadowDom(passengerRoot,adultPassengerCount);
+        if (adultValue < expectedCount) {
+            while (adultValue < expectedCount) {
+                selectElementInsideShadowDom(passengerRoot, adultPassengerIncrementButton);
+                adultCount = getTextFromElementInsideShadowDom(passengerRoot, adultPassengerCount);
                 adultValue = Integer.parseInt(adultCount);
             }
-        }else if(adultValue>expectedCount){
-            while(adultValue>expectedCount){
-                selectElementInsideShadowDom(passengerRoot,adultPassengerDecrementButton);
-                adultCount= getTextFromElementInsideShadowDom(passengerRoot,adultPassengerCount);
+        } else if (adultValue > expectedCount) {
+            while (adultValue > expectedCount) {
+                selectElementInsideShadowDom(passengerRoot, adultPassengerDecrementButton);
+                adultCount = getTextFromElementInsideShadowDom(passengerRoot, adultPassengerCount);
                 adultValue = Integer.parseInt(adultCount);
             }
         }
     }
 
-    private void setChildPassenger(SearchContext passengerRoot, String count){
-        String childCount = getTextFromElementInsideShadowDom(passengerRoot,childPassengerCount);
+    private void setChildPassenger(SearchContext passengerRoot, String count) {
+        String childCount = getTextFromElementInsideShadowDom(passengerRoot, childPassengerCount);
         int childValue = Integer.parseInt(childCount);
         int expectedCount = Integer.parseInt(count);
-        if(childValue <expectedCount){
-            while(childValue <expectedCount){
-                selectElementInsideShadowDom(passengerRoot,childPassengerIncrementButton);
-                childCount = getTextFromElementInsideShadowDom(passengerRoot,childPassengerCount);
+        if (childValue < expectedCount) {
+            while (childValue < expectedCount) {
+                selectElementInsideShadowDom(passengerRoot, childPassengerIncrementButton);
+                childCount = getTextFromElementInsideShadowDom(passengerRoot, childPassengerCount);
                 childValue = Integer.parseInt(childCount);
             }
-        }else if(childValue >expectedCount){
-            while(childValue >expectedCount){
-                selectElementInsideShadowDom(passengerRoot,childPassengerDecrementButton);
-                childCount = getTextFromElementInsideShadowDom(passengerRoot,childPassengerCount);
+        } else if (childValue > expectedCount) {
+            while (childValue > expectedCount) {
+                selectElementInsideShadowDom(passengerRoot, childPassengerDecrementButton);
+                childCount = getTextFromElementInsideShadowDom(passengerRoot, childPassengerCount);
                 childValue = Integer.parseInt(childCount);
             }
         }
     }
 
-    private void setInfantPassenger(SearchContext passengerRoot, String count){
-        String infantCount = getTextFromElementInsideShadowDom(passengerRoot,infantPassengerCount);
+    private void setInfantPassenger(SearchContext passengerRoot, String count) {
+        String infantCount = getTextFromElementInsideShadowDom(passengerRoot, infantPassengerCount);
         int infantValue = Integer.parseInt(infantCount);
         int expectedCount = Integer.parseInt(count);
-        if(infantValue <expectedCount){
-            while(infantValue <expectedCount){
-                selectElementInsideShadowDom(passengerRoot,infantPassengerIncrementButton);
-                infantCount = getTextFromElementInsideShadowDom(passengerRoot,infantPassengerCount);
+        if (infantValue < expectedCount) {
+            while (infantValue < expectedCount) {
+                selectElementInsideShadowDom(passengerRoot, infantPassengerIncrementButton);
+                infantCount = getTextFromElementInsideShadowDom(passengerRoot, infantPassengerCount);
                 infantValue = Integer.parseInt(infantCount);
             }
-        }else if(infantValue >expectedCount){
-            while(infantValue >expectedCount){
-                selectElementInsideShadowDom(passengerRoot,infantPassengerDecrementButton);
-                infantCount = getTextFromElementInsideShadowDom(passengerRoot,infantPassengerCount);
+        } else if (infantValue > expectedCount) {
+            while (infantValue > expectedCount) {
+                selectElementInsideShadowDom(passengerRoot, infantPassengerDecrementButton);
+                infantCount = getTextFromElementInsideShadowDom(passengerRoot, infantPassengerCount);
                 infantValue = Integer.parseInt(infantCount);
             }
         }
     }
 
-    private SearchContext getCabinSelectionModal(){
-        SearchContext shadowRootCabinPicker = getShadowDomInsideShadowDom(getFlightSearchForm(),shadowHostCabinPicker);
-        selectElementInsideShadowDom(shadowRootCabinPicker,cabinPickerButton);
+    private SearchContext getCabinSelectionModal() {
+        SearchContext shadowRootCabinPicker = getShadowDomInsideShadowDom(getFlightSearchForm(), shadowHostCabinPicker);
+        selectElementInsideShadowDom(shadowRootCabinPicker, cabinPickerButton);
         return shadowRootCabinPicker;
     }
+
     public void selectTripType(String type) {
 
         if (type.equalsIgnoreCase("One-way")) {
             selectElementInsideShadowDom(getFlightSearchForm(), oneWayButton);
-        }else if(type.equalsIgnoreCase("Round-trip")){
+        } else if (type.equalsIgnoreCase("Round-trip")) {
             selectElementInsideShadowDom(getFlightSearchForm(), roundTripButton);
-        }else if(type.equalsIgnoreCase("Multi-city")){
+        } else if (type.equalsIgnoreCase("Multi-city")) {
             selectElementInsideShadowDom(getFlightSearchForm(), multiCityButton);
         }
 
     }
-    public void selectDirectFlight(){
-        SearchContext shadowRootDirectFlightCheckBox = getShadowDomInsideShadowDom(getFlightSearchForm(),shadowHostDirectFlightCheckBox);
+
+    public void selectDirectFlight() {
+        SearchContext shadowRootDirectFlightCheckBox = getShadowDomInsideShadowDom(getFlightSearchForm(), shadowHostDirectFlightCheckBox);
         selectElementInsideShadowDom(shadowRootDirectFlightCheckBox, directFlightButton);
     }
-    public void enterFromAirport(String airport){
+
+    public void enterFromAirport(String airport) {
         SearchContext flightFromRoot = getFlightLocationForm("From");
-        sendKeysElementInsideShadowDom(flightFromRoot,inputFromAirport,airport);
+        sendKeysElementInsideShadowDom(flightFromRoot, inputFromAirport, airport);
     }
-    public void enterToAirport(String airport){
+
+    public void enterToAirport(String airport) {
         SearchContext flightFromRoot = getFlightLocationForm("To");
-        sendKeysElementInsideShadowDom(flightFromRoot,inputToAirport,airport);
+        sendKeysElementInsideShadowDom(flightFromRoot, inputToAirport, airport);
     }
 
-    public void selectDepartDate(String date){
+    public void selectDepartDate(String date) {
         SearchContext departDateOverlay = getFlightCalenderForm("Depart");
-        selectDate(departDateOverlay,date);
+        selectDate(departDateOverlay, date);
 
     }
-    public void selectReturnDate(String date){
+
+    public void selectReturnDate(String date) {
         SearchContext departDateOverlay = getFlightCalenderForm("Return");
-        selectDate(departDateOverlay,date);
+        selectDate(departDateOverlay, date);
     }
 
-    public void selectNumberOfPassenger(String adult,String child,String infant){
-       SearchContext passengerRoot = getPassengerSelectionModal();
-       setAdultPassenger(passengerRoot,adult);
-       setChildPassenger(passengerRoot,child);
-       setInfantPassenger(passengerRoot,infant);
-       selectElementInsideShadowDom(passengerRoot,passengerApplyButton);
+    public void selectNumberOfPassenger(String adult, String child, String infant) {
+        SearchContext passengerRoot = getPassengerSelectionModal();
+        setAdultPassenger(passengerRoot, adult);
+        setChildPassenger(passengerRoot, child);
+        setInfantPassenger(passengerRoot, infant);
+        selectElementInsideShadowDom(passengerRoot, passengerApplyButton);
     }
 
-    public void selectCabinType(String cabin){
+    public void selectCabinType(String cabin) {
         SearchContext cabinRoot = getCabinSelectionModal();
-        selectElementByVisibleTextInsideShadowDom(cabinRoot,cabinSelector,cabin);
+        selectElementByVisibleTextInsideShadowDom(cabinRoot, cabinSelector, cabin);
     }
-    public void clickFlightSearch(){
+
+    public void clickFlightSearch() {
         selectElementInsideShadowDom(getFlightSearchForm(), flightSearChButton);
         DriverHelper.moveToChildWindow();
     }

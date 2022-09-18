@@ -11,11 +11,11 @@ import java.time.Duration;
 import java.util.List;
 
 public class BasePage {
-     BasePage() {
+    BasePage() {
         PageFactory.initElements(DriverProvider.getDriver(), this);
     }
 
-    public static void do_click(WebElement element) {
+    public static void doClick(WebElement element) {
         WebDriver driver = DriverProvider.getDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(ApplicationConfig.getDefaultExplicitWait()));
         wait.until(ExpectedConditions.visibilityOf(element)).click();
@@ -66,7 +66,7 @@ public class BasePage {
         WebDriver driver = DriverProvider.getDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(ApplicationConfig.getDefaultExplicitWait()));
         List<WebElement> options = wait.until(ExpectedConditions.refreshed(ExpectedConditions.visibilityOfAllElements(shadowRoot.findElements(element))));
-      //  List<WebElement> options = wait.until(ExpectedConditions.visibilityOfAllElements(shadowRoot.findElements(element)));
+        //  List<WebElement> options = wait.until(ExpectedConditions.visibilityOfAllElements(shadowRoot.findElements(element)));
 
         for (WebElement option : options) {
             if (option.getText().equalsIgnoreCase(message)) {

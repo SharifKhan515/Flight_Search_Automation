@@ -7,7 +7,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.HashMap;
 
-public class FlightSearchResultPage extends BasePage{
+public class FlightSearchResultPage extends BasePage {
     @FindBy(css = "#app")
     private WebElement shadowHostMainPage;
     By shadowHostFlightPage = new By.ByCssSelector("wego-search-form[app-name='flights']");
@@ -26,7 +26,7 @@ public class FlightSearchResultPage extends BasePage{
     By shadowHostReturnDate = new By.ByCssSelector("wego-date-selector:nth-child(3)");
     By inputDepartDate = new By.ByCssSelector("input[placeholder='Depart']");
     By inputReturnDate = new By.ByCssSelector("input[placeholder='Return']");
-    By  shadowHostCabinPicker = new By.ByCssSelector("cabin-class-picker");
+    By shadowHostCabinPicker = new By.ByCssSelector("cabin-class-picker");
     By cabinClass = new By.ByCssSelector("div:nth-child(2) > div:nth-child(2)");
     By shadowHostPassengerDropDown = new By.ByCssSelector("#passengers");
     By passengerDropDownButton = new By.ByCssSelector(".btn");
@@ -43,75 +43,77 @@ public class FlightSearchResultPage extends BasePage{
         return getShadowDomInsideShadowDom(shadowRootFlightSearchContainer, shadowHostFlightSearchForm);
     }
 
-    private SearchContext getFlightLocation(String location){
+    private SearchContext getFlightLocation(String location) {
         //Return the form which contain To and From
-        SearchContext shadowRootFlightLocationPicker = getShadowDomInsideShadowDom(getFlightSearchForm(),shadowHostFlightLocationPicker);
+        SearchContext shadowRootFlightLocationPicker = getShadowDomInsideShadowDom(getFlightSearchForm(), shadowHostFlightLocationPicker);
         SearchContext flightLocationRoot = null;
-        if(location.equalsIgnoreCase("to")){
-            flightLocationRoot =  getShadowDomInsideShadowDom(shadowRootFlightLocationPicker,shadowHostToLocation);
-        }else if(location.equalsIgnoreCase("from")){
-            flightLocationRoot =  getShadowDomInsideShadowDom(shadowRootFlightLocationPicker,shadowHostFromLocation);
+        if (location.equalsIgnoreCase("to")) {
+            flightLocationRoot = getShadowDomInsideShadowDom(shadowRootFlightLocationPicker, shadowHostToLocation);
+        } else if (location.equalsIgnoreCase("from")) {
+            flightLocationRoot = getShadowDomInsideShadowDom(shadowRootFlightLocationPicker, shadowHostFromLocation);
         }
         assert flightLocationRoot != null;
-        return getShadowDomInsideShadowDom(flightLocationRoot,shadowHostLocationSelector);
+        return getShadowDomInsideShadowDom(flightLocationRoot, shadowHostLocationSelector);
 
     }
-    private SearchContext getFlightCalenderForm(String dateType){
+
+    private SearchContext getFlightCalenderForm(String dateType) {
         //Return the form which contain To and From
-        SearchContext shadowRootDatePicker= getShadowDomInsideShadowDom(getFlightSearchForm(),shadowHostDatePicker);
-        SearchContext shadowRootDateSelector = getShadowDomInsideShadowDom(shadowRootDatePicker,shadowHostDateSelector);
+        SearchContext shadowRootDatePicker = getShadowDomInsideShadowDom(getFlightSearchForm(), shadowHostDatePicker);
+        SearchContext shadowRootDateSelector = getShadowDomInsideShadowDom(shadowRootDatePicker, shadowHostDateSelector);
         SearchContext flightDateRoot = null;
-        if(dateType.equalsIgnoreCase("depart")){
-            flightDateRoot =  getShadowDomInsideShadowDom(shadowRootDateSelector,shadowHostDepartDate);
-        }else if(dateType.equalsIgnoreCase("return")){
-            flightDateRoot =  getShadowDomInsideShadowDom(shadowRootDateSelector,shadowHostReturnDate);
+        if (dateType.equalsIgnoreCase("depart")) {
+            flightDateRoot = getShadowDomInsideShadowDom(shadowRootDateSelector, shadowHostDepartDate);
+        } else if (dateType.equalsIgnoreCase("return")) {
+            flightDateRoot = getShadowDomInsideShadowDom(shadowRootDateSelector, shadowHostReturnDate);
         }
-        assert flightDateRoot  != null;
+        assert flightDateRoot != null;
         return flightDateRoot;
     }
 
-    private SearchContext getPassengerSelectionModal(){
-        SearchContext shadowRootPassengerDropDown = getShadowDomInsideShadowDom(getFlightSearchForm(),shadowHostPassengerDropDown);
-        selectElementInsideShadowDom(shadowRootPassengerDropDown,passengerDropDownButton);
+    private SearchContext getPassengerSelectionModal() {
+        SearchContext shadowRootPassengerDropDown = getShadowDomInsideShadowDom(getFlightSearchForm(), shadowHostPassengerDropDown);
+        selectElementInsideShadowDom(shadowRootPassengerDropDown, passengerDropDownButton);
         return shadowRootPassengerDropDown;
     }
-    public String getFromAirport(){
+
+    public String getFromAirport() {
         SearchContext locationShadowDom = getFlightLocation("from");
-       return getAttributeFromElementInsideShadowDom(locationShadowDom, inputFromAirport, "value");
+        return getAttributeFromElementInsideShadowDom(locationShadowDom, inputFromAirport, "value");
     }
 
-    public String getToAirport(){
+    public String getToAirport() {
         SearchContext locationShadowDom = getFlightLocation("to");
-        return getAttributeFromElementInsideShadowDom(locationShadowDom,inputToAirport,"value");
+        return getAttributeFromElementInsideShadowDom(locationShadowDom, inputToAirport, "value");
     }
 
-    public String getActiveTripType(){
-        return getTextFromElementInsideShadowDom(getFlightSearchForm(),activeTripType);
+    public String getActiveTripType() {
+        return getTextFromElementInsideShadowDom(getFlightSearchForm(), activeTripType);
     }
 
-    public HashMap<String,String> getAllPassengerCount(){
-        HashMap<String,String> result = new HashMap<>();
+    public HashMap<String, String> getAllPassengerCount() {
+        HashMap<String, String> result = new HashMap<>();
         SearchContext passengerModalShadowDom = getPassengerSelectionModal();
-        result.put("adult",getTextFromElementInsideShadowDom(passengerModalShadowDom,adultPassengerCount));
-        result.put("child",getTextFromElementInsideShadowDom(passengerModalShadowDom,childPassengerCount));
-        result.put("infant",getTextFromElementInsideShadowDom(passengerModalShadowDom,infantPassengerCount));
-        String total = getTextFromElementInsideShadowDom(getShadowDomInsideShadowDom(getFlightSearchForm(),shadowHostPassengerDropDown),totalPassengerCount);
-        result.put("total_passenger",total);
+        result.put("adult", getTextFromElementInsideShadowDom(passengerModalShadowDom, adultPassengerCount));
+        result.put("child", getTextFromElementInsideShadowDom(passengerModalShadowDom, childPassengerCount));
+        result.put("infant", getTextFromElementInsideShadowDom(passengerModalShadowDom, infantPassengerCount));
+        String total = getTextFromElementInsideShadowDom(getShadowDomInsideShadowDom(getFlightSearchForm(), shadowHostPassengerDropDown), totalPassengerCount);
+        result.put("total_passenger", total);
         return result;
     }
 
-    public String getCabinType(){
-        SearchContext shadowRootCabinPicker= getShadowDomInsideShadowDom(getFlightSearchForm(),shadowHostCabinPicker);
-        return getTextFromElementInsideShadowDom(shadowRootCabinPicker,cabinClass);
+    public String getCabinType() {
+        SearchContext shadowRootCabinPicker = getShadowDomInsideShadowDom(getFlightSearchForm(), shadowHostCabinPicker);
+        return getTextFromElementInsideShadowDom(shadowRootCabinPicker, cabinClass);
     }
 
-    public String getDepartDate(){
+    public String getDepartDate() {
         SearchContext flightDepartShadowDom = getFlightCalenderForm("Depart");
-        return getAttributeFromElementInsideShadowDom(flightDepartShadowDom,inputDepartDate,"value");
+        return getAttributeFromElementInsideShadowDom(flightDepartShadowDom, inputDepartDate, "value");
     }
 
-    public String getReturnDate(){
+    public String getReturnDate() {
         SearchContext flightReturnShadowDom = getFlightCalenderForm("Return");
-        return getAttributeFromElementInsideShadowDom(flightReturnShadowDom,inputReturnDate,"value");
+        return getAttributeFromElementInsideShadowDom(flightReturnShadowDom, inputReturnDate, "value");
     }
 }
