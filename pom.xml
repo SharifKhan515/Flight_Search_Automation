@@ -16,7 +16,6 @@
     <selenium.version>4.3.0</selenium.version>
     <testng.version>6.8</testng.version>
     <webdriver.mamanger.version>4.2.2</webdriver.mamanger.version>
-    <jxl.version>2.6.12</jxl.version>
     <extentreports.version>5.0.1</extentreports.version>
     <apache.commons.version>3.11</apache.commons.version>
     <apache.poi.version>4.1.2</apache.poi.version>
@@ -33,11 +32,6 @@
       <groupId>io.github.bonigarcia</groupId>
       <artifactId>webdrivermanager</artifactId>
       <version>${webdriver.mamanger.version}</version>
-    </dependency>
-    <dependency>
-      <groupId>net.sourceforge.jexcelapi</groupId>
-      <artifactId>jxl</artifactId>
-      <version>${jxl.version}</version>
     </dependency>
     <dependency>
       <groupId>org.testng</groupId>
